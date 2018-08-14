@@ -1,0 +1,25 @@
+
+b
+2app/src/main/java/com/zeed/zeemp/models/Audio.java,c/b/cb38ba86a6a15871d3821bcf13772f4a2c677e15
+v
+Fapp/build/intermediates/manifest/androidTest/debug/AndroidManifest.xml,6/1/612776d789610affa07ced6777dbfcfa81f636ab
+@
+app/build.gradle,f/4/f4a01d6a4fcb971362ec00a83903fd3902f52164
+U
+%app/src/main/res/layout/item_view.xml,d/8/d8179b9309d5d8cc12e708b74d53be45125df159
+q
+Aapp/src/main/java/com/zeed/zeemp/adapters/AudioPlayerAdapter.java,a/2/a2b2edd4ec35c99391d53964890c592291ae8200
+R
+"app/src/main/res/values/dimens.xml,c/3/c3c1811dec2dbad2deeafb9aad505ca9631da740
+m
+=app/src/main/java/com/zeed/zeemp/activities/MainActivity.java,8/5/857303e42fded57622092dc04eb529b416f2492b
+R
+"app/src/main/res/values/styles.xml,f/7/f79cc2688e29fcbc286fda14ae07b27c9e83690f
+]
+-app/src/main/res/layout/content_scrolling.xml,7/e/7e0c3048b96da141939284a851d7425aac263d8b
+P
+ app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
+X
+(app/src/main/res/menu/menu_scrolling.xml,6/0/60e53500c2629d15fabcfeb2fcea019e6c0b437b
+Y
+)app/src/main/res/layout/activity_main.xml,7/6/76b07e40f24cce093536731477540f12e7da3cb6
