@@ -9,13 +9,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,6 +29,7 @@ import com.zeed.zeemp.R;
 import com.zeed.zeemp.adapters.AudioPlayerAdapter;
 import com.zeed.zeemp.models.Audio;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,19 +45,21 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
 
     final List<Audio> audioList = new ArrayList<>();
 
+
     AudioPlayerAdapter audioPlayerAdapter;
     RecyclerView recyclerView;
+    private Audio currentlyPlayed;
+    Integer index;
+    private TextView audioTitleTextView;
 
     ImageView imageView;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
+    RecyclerView.LayoutManager layoutManager;
+
+    private Integer playValue = 0;
 
     public AudioListFragment() {
         // Required empty public constructor
@@ -71,7 +78,7 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
 
     }
 
@@ -80,12 +87,8 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_audio_list, container, false);
-        // Inflate the layout for this fragment
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-
-
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        actionBar.setTitle("ZeeMp");
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
@@ -93,29 +96,46 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
 
         recyclerView.setAdapter(audioPlayerAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         audioPlayerAdapter.notifyDataSetChanged();
+        audioTitleTextView = (TextView) view.findViewById(R.id.audio_title);
 
         imageView = (ImageView) view.findViewById(R.id.play_or_pause);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (currentlyPlayed == null) {
+                    currentlyPlayed = audioList.get(0);
+                    try {
+                        mListener.playMusic(currentlyPlayed);
+                        setPlayOrPause();
+                    } catch (IOException e) {
+                        Log.d("Error", "onClick: Error occured while playing the first loaded music");
+                    }
+                    return;
+                }
+
                 Log.d("Hello", "onClick: ");
+                playValue = mListener.playOrPauseMusic();
+                setPlayOrPause();
             }
         });
 
-
         getActivity().getSupportLoaderManager().initLoader(0, null, this);
+        showDetailsFragment();
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    private void showDetailsFragment() {
+        audioTitleTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.gotoDetailsFragment();
+            }
+        });
     }
 
     @Override
@@ -136,17 +156,38 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     @Override
-    public void click(Audio audio) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_scrolling, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+        MenuItem menuItem = menu.findItem(R.id.search);
+
+        final SearchView searchView = (SearchView) menuItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                audioPlayerAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public void click(Audio audio) throws IOException {
         if (audio != null) {
             TextView textView = getView().findViewById(R.id.audio_title);
             textView.setText(audio.getTitle());
+            mListener.playMusic(audio);
+            currentlyPlayed = audio;
+            setPlayOrPause();
         }
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -162,13 +203,29 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().getSupportLoaderManager().restartLoader(0,null,this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         fetchMusicWithContentProvider(cursor);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        Log.d("", "onLoaderReset: ");
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     public void fetchMusicWithContentProvider(Cursor cursor) {
@@ -184,8 +241,28 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
             audioList.add(audio);
         }
         audioPlayerAdapter.notifyDataSetChanged();
-        Log.d("TAG", "fetchMusicWithContentProvider: Fetched");
+        if (currentlyPlayed != null) {
+            index = audioList.indexOf(currentlyPlayed);
+            layoutManager.scrollToPosition(index);
+        } else {
+            audioTitleTextView.setText(audioList.get(0).getTitle());
+        }
+    }
+
+    public void setPlayOrPause() {
+        if (mListener.isMusicPlaying()) {
+            imageView.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
+        } else {
+            imageView.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+        }
     }
 
 
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction(Uri uri);
+        void playMusic(Audio audio) throws IOException;
+        Integer playOrPauseMusic();
+        boolean isMusicPlaying();
+        void gotoDetailsFragment();
+    }
 }

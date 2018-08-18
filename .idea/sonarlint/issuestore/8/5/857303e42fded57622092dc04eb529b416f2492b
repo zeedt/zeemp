@@ -1,5 +1,14 @@
 
-Msquid:S1905&"*Remove this unnecessary cast to "Toolbar".(ªü–ıÿÿÿÿ8™¨ĞÓ,
-esquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(”Ş
-Msquid:S1905+"/Remove this unnecessary cast to "RecyclerView".(¾àÔ¶8÷Š¤Ó,
-¤squid:S1186M"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(û±û¾úÿÿÿÿ8òš½ÿÒ,
+osquid:UselessImportCheck	"DRemove this unused import 'android.support.v4.content.CursorLoader'.(À¶ÅÁ8²÷é†Ô,
+dsquid:UselessImportCheck"4Remove this unused import 'android.database.Cursor'.(Ôäåúÿÿÿÿ8²÷é†Ô,
+Fsquid:S1185L"(Remove this method to simply inherit it.(Ù«µ§8—¹±äÓ,
+qsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(Œ™‘¤øÿÿÿÿ8ğ«™©Ó,
+Esquid:S1185G"(Remove this method to simply inherit it.(¹§ 8É³ÔãÓ,
+csquid:UselessImportCheck"8Remove this unused import 'android.provider.MediaStore'.(ãçšş8²÷é†Ô,
+nsquid:UselessImportCheck
+">Remove this unused import 'android.support.v4.content.Loader'.( „ı§øÿÿÿÿ8²÷é†Ô,
+]squid:UselessImportCheck"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ8²÷é†Ô,
+lsquid:UselessImportCheck"ARemove this unused import 'android.support.v4.app.LoaderManager'.(ê­í8ìô¯ÒÓ,
+Ÿsquid:S1186Q"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(„˜®’8ı¾‚»Ó,
+asquid:UselessImportCheck"6Remove this unused import 'android.view.MenuInflater'.(¥ñ´Ò8ôŞû³Ô,
+Ysquid:UselessImportCheck".Remove this unused import 'android.view.Menu'.(£¯Ò…8ôŞû³Ô,
