@@ -1,0 +1,10 @@
+
+tsquid:S1450"VRemove the "mParam2" field and declare it as a local variable in the relevant methods.(¡ˆ€ 8Ï«ñÌÔ,
+tsquid:S1450"VRemove the "mParam1" field and declare it as a local variable in the relevant methods.(•Íï‘8Ï«ñÌÔ,
+Isquid:S1068"+Remove this unused "mParam1" private field.(•Íï‘8Ï«ñÌÔ,
+Isquid:S1135H"2Complete the task associated to this TODO comment.(‡‚ùˆ
+^squid:S00112<"FDefine and throw a dedicated exception instead of using a generic one.(İŒÜ±
+Nsquid:S1135"2Complete the task associated to this TODO comment.(ÜûŠ—øÿÿÿÿ
+Usquid:S1135"2Complete the task associated to this TODO comment.(ğï¢öúÿÿÿÿ8Ï«ñÌÔ,
+Isquid:S1068"+Remove this unused "mParam2" private field.(¡ˆ€ 8Ï«ñÌÔ,
+Psquid:S1068"-Remove this unused "mListener" private field.(ÏÙå¯úÿÿÿÿ8Ï«ñÌÔ,

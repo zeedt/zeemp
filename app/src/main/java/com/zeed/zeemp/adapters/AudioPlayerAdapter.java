@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by teamapt on 12/08/2018.
+ * Created by zeed on 12/08/2018.
  */
 
 public class AudioPlayerAdapter extends RecyclerView.Adapter<AudioPlayerAdapter.ViewHolder> implements Filterable {

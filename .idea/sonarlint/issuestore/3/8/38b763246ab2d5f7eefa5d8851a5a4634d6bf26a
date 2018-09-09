@@ -1,2 +1,18 @@
 
-fsquid:S00112€"FDefine and throw a dedicated exception instead of using a generic one.(İŒÜ±8»³ßÔÓ,
+Lsquid:S1185÷"(Remove this method to simply inherit it.(İßéàúÿÿÿÿ8÷ù¾ÚÚ,
+Ÿsquid:S1192s"|Define a constant instead of duplicating this literal "onClick: Error occured while playing the first loaded music" 3 times.(¶Ñ¢şÿÿÿÿ8íä–Û,
+¥squid:S1186‰"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ìó°şÿÿÿÿ8ãµÀÚÚ,
+Gsquid:S1185è"(Remove this method to simply inherit it.(±íòÑ8÷ù¾ÚÚ,
+¥squid:S1186„"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ôŠÜ£úÿÿÿÿ8ãµÀÚÚ,
+:squid:S3626ì"Remove this redundant jump.(ûÁİ…8íä–Û,
+Wsquid:S2589"8Remove this expression which always evaluates to "false"(ûÊó8÷ù¾ÚÚ,
+˜"squid:ClassVariableVisibilityCheck2"^Make audioTitleTextView a static final constant or non-public and provide accessors if needed.(ÎÀ‰ıÿÿÿÿ8şô²Ú,
+]squid:S1155">Use isEmpty() to check whether the collection is empty or not.(ûÊó8÷ù¾ÚÚ,
+isquid:S1192s"FDefine a constant instead of duplicating this literal "Error" 4 times.(¶Ñ¢şÿÿÿÿ8íä–Û,
+bsquid:S1155Î">Use isEmpty() to check whether the collection is empty or not.(ºÓÓêøÿÿÿÿ8ìö…—Û,
+¥squid:S1186¯"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ç†ñ¼ıÿÿÿÿ8İ ®†Û,
+Gsquid:S1185”"(Remove this method to simply inherit it.(Ö‰ü¼8÷ù¾ÚÚ,
+:squid:S3626Ã"Remove this redundant jump.(ûÁİ…8ˆúÑ†Û,
+\squid:S2589Î"8Remove this expression which always evaluates to "false"(ºÓÓêøÿÿÿÿ8Íœƒ—Û,
+fsquid:S00112§"FDefine and throw a dedicated exception instead of using a generic one.(İŒÜ±8÷ù¾ÚÚ,
+Jsquid:S1068B"-Remove this unused "playValue" private field.(šµè8÷ù¾ÚÚ,

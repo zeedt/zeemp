@@ -1,4 +1,4 @@
 
+[squid:UselessImportCheck"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8¼¤Ğ†Ô,
 [squid:UselessImportCheck"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8ê‡Ğ†Ô,
 "squid:ClassVariableVisibilityCheck"[Make currentlyPlayed a static final constant or non-public and provide accessors if needed.(Ó¾£—8ê‡Ğ†Ô,
-[squid:UselessImportCheck"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8¼¤Ğ†Ô,

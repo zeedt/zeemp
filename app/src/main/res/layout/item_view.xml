@@ -8,34 +8,20 @@
     android:paddingRight="5dp"
     android:id="@+id/recycler_card_view"
     android:layout_height="wrap_content">
-
-    <!--<android.support.v7.widget.CardView-->
-        <!--android:id="@+id/recycler_card_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_marginBottom="10dp"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:layout_height="wrap_content">-->
-        <!--<TextView-->
-            <!--android:id="@+id/audio_name"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:lines="1"-->
-            <!--android:textColor="#001100"-->
-            <!--/>-->
-
     <com.zeed.zeemp.customviews.ItemListTextView
         android:id="@+id/audio_name"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_gravity="center_vertical"
         android:textAlignment="gravity"
-        android:textColor="#001100"
+        android:textColor="#FFFFFF"
+        android:textSize="17dp"
+        android:maxLines="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <!--</android.support.v7.widget.CardView>-->
 
 </android.support.constraint.ConstraintLayout>

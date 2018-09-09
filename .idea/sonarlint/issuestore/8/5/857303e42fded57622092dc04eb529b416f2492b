@@ -1,14 +1,12 @@
 
-osquid:UselessImportCheck	"DRemove this unused import 'android.support.v4.content.CursorLoader'.(À¶ÅÁ8²÷é†Ô,
-dsquid:UselessImportCheck"4Remove this unused import 'android.database.Cursor'.(Ôäåúÿÿÿÿ8²÷é†Ô,
-Fsquid:S1185L"(Remove this method to simply inherit it.(Ù«µ§8—¹±äÓ,
-qsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(Œ™‘¤øÿÿÿÿ8ğ«™©Ó,
-Esquid:S1185G"(Remove this method to simply inherit it.(¹§ 8É³ÔãÓ,
-csquid:UselessImportCheck"8Remove this unused import 'android.provider.MediaStore'.(ãçšş8²÷é†Ô,
-nsquid:UselessImportCheck
-">Remove this unused import 'android.support.v4.content.Loader'.( „ı§øÿÿÿÿ8²÷é†Ô,
-]squid:UselessImportCheck"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ8²÷é†Ô,
-lsquid:UselessImportCheck"ARemove this unused import 'android.support.v4.app.LoaderManager'.(ê­í8ìô¯ÒÓ,
-Ÿsquid:S1186Q"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(„˜®’8ı¾‚»Ó,
-asquid:UselessImportCheck"6Remove this unused import 'android.view.MenuInflater'.(¥ñ´Ò8ôŞû³Ô,
-Ysquid:UselessImportCheck".Remove this unused import 'android.view.Menu'.(£¯Ò…8ôŞû³Ô,
+œ"squid:ClassVariableVisibilityCheck."bMake mediaPlayerBindService a static final constant or non-public and provide accessors if needed.(›•‚‰ùÿÿÿÿ8‹®†ÒÙ,
+psquid:HiddenFieldCheck|"GRename "fragmentTransaction" which hides the field declared at line 38.(»èŞè8àÖˆÒÙ,
+•"squid:ClassVariableVisibilityCheck*"[Make detailsFragment a static final constant or non-public and provide accessors if needed.(í–Ğğøÿÿÿÿ8££ÎÔ,
+Ÿsquid:S1186]"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(„˜®’8àÖˆÒÙ,
+—"squid:ClassVariableVisibilityCheck("]Make audioListFragment a static final constant or non-public and provide accessors if needed.(îâ”çşÿÿÿÿ8££ÎÔ,
+“"squid:ClassVariableVisibilityCheck""^Make audioPlayerAdapter a static final constant or non-public and provide accessors if needed.(«Â©Ô8££ÎÔ,
+‘"squid:ClassVariableVisibilityCheck$"WMake mediaPlayer a static final constant or non-public and provide accessors if needed.(Ãß‹“ÿÿÿÿÿ8££ÎÔ,
+Ksquid:S10680"-Remove this unused "binderSet" private field.(Êü8àÖˆÒÙ,
+lsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(ûô»Ò8££ÎÔ,
+“"squid:ClassVariableVisibilityCheck&"_Make fragmentTransaction a static final constant or non-public and provide accessors if needed.(È ÷8££ÎÔ,
+’"squid:ClassVariableVisibilityCheck4"]Make serviceConnection a static final constant or non-public and provide accessors if needed.(­Ÿÿœ8«‹ïğÙ,

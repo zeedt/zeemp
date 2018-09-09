@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@drawable/background"
     tools:context="com.zeed.zeemp.activities.MainActivity">
 
     <LinearLayout
@@ -13,6 +14,8 @@
         android:id="@+id/fragment"
         android:name="com.zeed.zeemp.fragments.AudioListFragment"
         android:orientation="horizontal" />
+
+    <!--<include layout="@layout/my_fragment_bottom_sheet" />-->
 
 </android.support.design.widget.CoordinatorLayout>
 

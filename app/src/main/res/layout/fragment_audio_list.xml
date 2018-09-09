@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
      android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="#FFFFFF"
-    android:paddingTop="20dp"
+    android:name="com.zeed.zeemp.fragments.AudioListFragment"
+    android:paddingTop="0dp"
     tools:context="com.zeed.zeemp.fragments.AudioListFragment"
     >
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="25dp"
         android:id="@+id/recycler_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -17,39 +19,16 @@
         android:layout_marginBottom="60dp"
         android:layout_height="match_parent"/>
 
+    <!--<android.support.design.widget.CoordinatorLayout android:layout_height="match_parent"-->
+        <!--android:layout_width="match_parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/recycler_view"-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android">-->
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#00e0e0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        >
-
-        <TextView
-            android:id="@+id/audio_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="50dp"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:text="Olamide featuring style plus- jekiwonmo Olamide featuring style plus- jekiwonmo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/play_or_pause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:foregroundGravity="center_vertical"
-            android:src="@drawable/ic_play_arrow_black_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <include layout="@layout/my_fragment_bottom_sheet" />
 
 
 
-    </android.support.constraint.ConstraintLayout>
+    <!--</android.support.design.widget.CoordinatorLayout>-->
 
 
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>
