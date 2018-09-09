@@ -1,9 +1,12 @@
 package com.zeed.zeemp.fragments;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -48,6 +51,7 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
 
     final List<Audio> audioList = new ArrayList<>();
 
+    private static final int READ_EXTERNAL_STORAGE_PERMISSION_REQUEST = 1;
 
     AudioPlayerAdapter audioPlayerAdapter;
     RecyclerView recyclerView;
@@ -223,8 +227,10 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
 
             }
         });
-
-        getActivity().getSupportLoaderManager().initLoader(0, null, this);
+        getReadExternalStoragePermission();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            getActivity().getSupportLoaderManager().initLoader(0, null, this);
+        }
         showBottomModalSheet();
         return view;
     }
@@ -314,7 +320,9 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().getSupportLoaderManager().restartLoader(0,null,this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            getActivity().getSupportLoaderManager().restartLoader(0, null, this);
+        }
     }
 
     @Override
@@ -528,6 +536,16 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
 
             }
         });
+    }
+
+    private void getReadExternalStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (getActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_PERMISSION_REQUEST);
+            } else {
+
+            }
+        }
     }
 
 }

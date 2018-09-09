@@ -41,8 +41,6 @@ m
 =app/src/main/java/com/zeed/zeemp/filters/AudioListFilter.java,9/f/9f107a5cff4db1735df13ff3e807a694c4258929
 r
 Bapp/src/main/java/com/zeed/zeemp/customviews/ItemListTextView.java,a/7/a7df20234cf2fc5c5f80723384056cb6ee84d774
-\
-,app/src/main/res/drawable/list_itwm_view.xml,1/f/1f74f13abd4ab265fe585a1927907c8814d2fbc3
 d
 4app/src/main/res/layout/my_fragment_bottom_sheet.xml,7/e/7ec607076acc945d8fceacf96da6bf0f341c1ecc
 {
@@ -63,3 +61,7 @@ e
 5app/src/main/res/drawable/ic_skip_next_black_24dp.xml,5/7/57dcaef70b6ec2648295cbdf74df562669cd653f
 i
 9app/src/main/res/drawable/ic_skip_previous_black_24dp.xml,6/d/6dc4fa66030d2014910a7329ef8599b438ebc45c
+\
+,app/src/main/res/drawable/list_item_view.xml,0/9/09f47ecfee1416a7e0320525b2d58742e88277cf
+b
+2app/src/main/res/drawable/ic_cancel_black_24dp.xml,1/3/13a5fcbd510fe03b50cc103fa6d184cff1ec187e
