@@ -1,8 +1,8 @@
 package com.zeed.zeemp.fragments;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,13 +11,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.util.Pair;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +28,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -55,11 +56,19 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
     public TextView audioTitleTextView;
     public TextView albumTitleTextView;
 
+    ImageView showSearchView;
+
     private boolean handlerRunning = false;
 
     private SeekBar seekBar;
 
     ImageView playOrPause;
+
+    private SearchView searchView;
+
+    private ConstraintLayout searchViewParentLayout;
+    private ConstraintLayout showSearchViewParentLayout;
+    private CoordinatorLayout fragmentLayout;
 
     private OnFragmentInteractionListener mListener;
     RecyclerView.LayoutManager layoutManager;
@@ -95,8 +104,10 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_audio_list, container, false);
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionBar.setTitle("ZeeMp");
+//        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+//        actionBar.setTitle("ZeeMp");
+
+        fragmentLayout = (CoordinatorLayout) view.findViewById(R.id.fragment_layout);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
@@ -112,6 +123,10 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
         recyclerView.setLayoutManager(layoutManager);
         audioPlayerAdapter.notifyDataSetChanged();
 
+        showSearchView = (ImageView) view.findViewById(R.id.showSearchView);
+
+        searchViewParentLayout = view.findViewById(R.id.search_view_layout);
+
         assignBottomModalSheetSeekBarToVariable(view);
 
         audioTitleTextView = (TextView) view.findViewById(R.id.audio_title);
@@ -120,6 +135,53 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
         currentlyPlayed = mListener.getCurrentlyPlayed();
         setCurrentlyPlayedTitle(currentlyPlayed);
         playOrPause = (ImageView) view.findViewById(R.id.play_or_pause);
+
+        searchView = (SearchView) view.findViewById(R.id.search_view);
+        final EditText editText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        editText.setTextColor(Color.WHITE);
+
+        ImageView closeButton = (ImageView) searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchViewParentLayout.setVisibility(View.GONE);
+                showSearchViewParentLayout.setVisibility(View.VISIBLE);
+                editText.setText("");
+                audioPlayerAdapter.getFilter().filter("");
+                audioPlayerAdapter.notifyDataSetChanged();
+            }
+        });
+
+
+        showSearchViewParentLayout = view.findViewById(R.id.showSearchViewParentLayout);
+
+        showSearchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchViewParentLayout.setVisibility(View.VISIBLE);
+                showSearchViewParentLayout.setVisibility(View.GONE);
+                editText.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            }
+        });
+
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                audioPlayerAdapter.getFilter().filter(newText);
+//                audioPlayerAdapter.
+                return true;
+            }
+        });
 
         playOrPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,16 +229,19 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
         return view;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
 
     private void showBottomModalSheet() {
         audioTitleTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                if (sheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED ) {
+                    playOrPause.setVisibility(View.GONE);
+                    sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+                if (sheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED ) {
+                    sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    playOrPause.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
@@ -267,10 +332,6 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
         Log.d("", "onLoaderReset: ");
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 
     public void fetchMusicWithContentProvider(Cursor cursor) {
         currentlyPlayed = mListener.getCurrentlyPlayed();
@@ -292,7 +353,7 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
             audioTitleTextView.setText(currentlyPlayed.getTitle());
             albumTitleTextView.setText(currentlyPlayed.getAlbum());
         } else {
-            if (audioList == null || audioList.size() == 0) {
+            if (audioList.isEmpty()) {
                 return;
             }
             audioTitleTextView.setText(audioList.get(0).getTitle());
@@ -301,7 +362,7 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     public void setPlayOrPause() {
-        if (mListener.isMusicPlaying()) {
+        if (mListener != null && mListener.isMusicPlaying()) {
             playOrPause.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
             bottomModalSheetPlayOrPause.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
         } else {
@@ -319,6 +380,8 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
         void gotoDetailsFragment();
         Audio getCurrentlyPlayed();
         Pair<Integer,Integer> getDurationAndPosition();
+        void seekToPosition(int seekBarPosition);
+        boolean hasMusicCompleted();
     }
 
     public void setCurrentlyPlayedTitle(Audio audio) {
@@ -330,10 +393,6 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
         albumTitleTextView.setText(audio.getAlbum());
     }
 
-    public void playOrPauseAudioInBottomModalSheet() {
-
-    }
-
     public void assignPlayOrPauseButtonModalSheetButtonsToVariable(View view) {
         bottomModalSheetPlayOrPause = view.findViewById(R.id.play_or_pause_bms);
 
@@ -342,7 +401,7 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
             public void onClick(View v) {
 
                 try {
-                    if (currentlyPlayed == null && audioList != null && audioList.size() > 0) {
+                    if (currentlyPlayed == null && !audioList.isEmpty()) {
                         currentlyPlayed = audioList.get(0);
                         mListener.playMusic(currentlyPlayed);
                         audioTitleTextView.setText(currentlyPlayed.getTitle());
@@ -364,7 +423,7 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
         bottomModalSheetNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (audioList == null || audioList.size() < 1) {
+                if (audioList.isEmpty()) {
                     return;
                 }
                 if (audioList.size() <= (index+1) ) {
@@ -413,22 +472,29 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
     private Runnable updateSeekBar = new Runnable() {
         @Override
         public void run() {
-            setPlayOrPause();
-            handlerRunning = true;
-            Pair<Integer,Integer> durationAndPosition = mListener.getDurationAndPosition();
-            if (durationAndPosition != null) {
-                int seekBarPosition = (durationAndPosition.second * 100) / durationAndPosition.first;
+            try {
+                setPlayOrPause();
+                handlerRunning = true;
+                if (mListener != null) {
+                    Pair<Integer,Integer> durationAndPosition = mListener.getDurationAndPosition();
+                    if (durationAndPosition != null) {
+                        int seekBarPosition = (durationAndPosition.second * 100) / durationAndPosition.first;
 
-                if(android.os.Build.VERSION.SDK_INT >= 11){
-                    ObjectAnimator animation = ObjectAnimator.ofInt(seekBar, "progress", seekBar.getProgress(), seekBarPosition * 100);
-                    animation.setDuration(1000); // 0.5 second
-                    animation.setInterpolator(new DecelerateInterpolator());
-                    animation.start();
-                } else {
-                    seekBar.setProgress(seekBarPosition);
+                        // TODO: Set animation
+        //                if(android.os.Build.VERSION.SDK_INT >= 11){
+        //                    ObjectAnimator animation = ObjectAnimator.ofInt(seekBar, "progress", seekBar.getProgress(), seekBarPosition * 100);
+        //                    animation.setDuration(durationAndPosition.second); // 0.5 second
+        //                    animation.setInterpolator(new DecelerateInterpolator());
+        //                    animation.start();
+        //                } else {
+        //                }
+                        seekBar.setProgress(seekBarPosition);
+                    }
+                    handler.postDelayed(updateSeekBar, DELAY_TIME);
                 }
+            } catch (Exception e) {
+                Log.e("Error", "run: Error occurred due to", e);
             }
-            handler.postDelayed(updateSeekBar, DELAY_TIME);
         }
     };
 
@@ -441,11 +507,12 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
 
     private void assignBottomModalSheetSeekBarToVariable(View view) {
         seekBar = (SeekBar) view.findViewById(R.id.app_seek_bar);
-        seekBar.setMax(100*100);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                if (progress == 99) {
+                    bottomModalSheetNext.performClick();
+                }
             }
 
             @Override
@@ -456,9 +523,11 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
+                int seekBarProgress = seekBar.getProgress();
+                mListener.seekToPosition(seekBarProgress);
+
             }
         });
     }
-
 
 }

@@ -31,7 +31,7 @@ public class MediaPlayerService extends Service {
 
     private boolean isPlaying = false;
 
-    MediaPlayerBindService mediaPlayerBindService = new MediaPlayerBindService();
+    private boolean completed = false;
 
     LocalBinder localBinder = new LocalBinder();
 
@@ -51,6 +51,13 @@ public class MediaPlayerService extends Service {
             if ("playorpause".equals(action)) {
                 playOrPauseMedia();
             }
+
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    completed = true;
+                }
+            });
 
             Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
             notificationIntent.setAction("Ation");  // A string containing the action name
@@ -97,6 +104,7 @@ public class MediaPlayerService extends Service {
         mediaPlayer.start();
         currentlyPlayed = audio;
         isPlaying = true;
+        completed = false;
     }
 
     public void playOrPauseMedia() {
@@ -109,6 +117,7 @@ public class MediaPlayerService extends Service {
             mediaPlayer.start();
             isPlaying = true;
         }
+        completed = false;
     }
 
     public boolean isPlaying() {
@@ -117,6 +126,10 @@ public class MediaPlayerService extends Service {
 
     public void setPlaying(boolean playing) {
         isPlaying = playing;
+    }
+
+    public boolean isCompleted() {
+        return completed;
     }
 
     public class LocalBinder extends Binder {
@@ -131,6 +144,23 @@ public class MediaPlayerService extends Service {
         }
 
         return new Pair<>(mediaPlayer.getDuration(), mediaPlayer.getCurrentPosition());
+    }
+
+    public void seekToPosition(int seekBarPosition) {
+
+        try {
+            if (mediaPlayer != null) {
+
+                int position = (seekBarPosition * mediaPlayer.getDuration()) / 100;
+
+                mediaPlayer.seekTo(position);
+                completed = false;
+
+            }
+        } catch (IllegalStateException e) {
+            Log.e("Error", "seekToPosition: Error occurred while seeking to position due to ", e);
+        }
+
     }
 
 }
