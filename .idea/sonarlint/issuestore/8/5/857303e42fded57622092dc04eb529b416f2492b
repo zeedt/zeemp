@@ -1,12 +1,16 @@
 
-Ÿsquid:S1186P"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(„˜®’8ƒ¹»ÂÛ,
-—"squid:ClassVariableVisibilityCheck"]Make audioListFragment a static final constant or non-public and provide accessors if needed.(îâ”çşÿÿÿÿ8££ÎÔ,
-œ"squid:ClassVariableVisibilityCheck%"bMake mediaPlayerBindService a static final constant or non-public and provide accessors if needed.(›•‚‰ùÿÿÿÿ8‹®†ÒÙ,
-•"squid:ClassVariableVisibilityCheck!"[Make detailsFragment a static final constant or non-public and provide accessors if needed.(í–Ğğøÿÿÿÿ8££ÎÔ,
-psquid:HiddenFieldChecko"GRename "fragmentTransaction" which hides the field declared at line 29.(»èŞè8ƒ¹»ÂÛ,
-`squid:UselessImportCheck"0Remove this unused import 'android.view.Window'.(¿è™÷úÿÿÿÿ8Æ€õïÛ,
-¤squid:S11862"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Û—Üüÿÿÿÿ8»Ğ»ÂÛ,
-lsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(ûô»Ò8££ÎÔ,
-:squid:S3626¤"Remove this redundant jump.(ûÁİ…8·ıØïÛ,
-’"squid:ClassVariableVisibilityCheck("]Make serviceConnection a static final constant or non-public and provide accessors if needed.(­Ÿÿœ8«‹ïğÙ,
-“"squid:ClassVariableVisibilityCheck"_Make fragmentTransaction a static final constant or non-public and provide accessors if needed.(È ÷8££ÎÔ,
+]squid:UselessImportCheck"-Remove this unused import 'android.Manifest'.(¦øïúÿÿÿÿ8òÈÙüÛ,
+]squid:UselessImportCheck
+"-Remove this unused import 'android.os.Build'.(ãÇ¤Úıÿÿÿÿ8òÈÙüÛ,
+lsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(ûô»Ò8££ÎÔ,
+:squid:S3626§"Remove this redundant jump.(ûÁİ…8·ıØïÛ,
+¤squid:S11865"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Û—Üüÿÿÿÿ8»Ğ»ÂÛ,
+Ÿsquid:S1186S"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(„˜®’8ƒ¹»ÂÛ,
+psquid:HiddenFieldCheckr"GRename "fragmentTransaction" which hides the field declared at line 32.(»èŞè8ƒ¹»ÂÛ,
+œ"squid:ClassVariableVisibilityCheck("bMake mediaPlayerBindService a static final constant or non-public and provide accessors if needed.(›•‚‰ùÿÿÿÿ8‹®†ÒÙ,
+’"squid:ClassVariableVisibilityCheck+"]Make serviceConnection a static final constant or non-public and provide accessors if needed.(­Ÿÿœ8«‹ïğÙ,
+•"squid:ClassVariableVisibilityCheck$"[Make detailsFragment a static final constant or non-public and provide accessors if needed.(í–Ğğøÿÿÿÿ8££ÎÔ,
+—"squid:ClassVariableVisibilityCheck""]Make audioListFragment a static final constant or non-public and provide accessors if needed.(îâ”çşÿÿÿÿ8££ÎÔ,
+“"squid:ClassVariableVisibilityCheck "_Make fragmentTransaction a static final constant or non-public and provide accessors if needed.(È ÷8££ÎÔ,
+nsquid:UselessImportCheck">Remove this unused import 'android.content.pm.PackageManager'.(€®¥õÿÿÿÿÿ8òÈÙüÛ,
+`squid:UselessImportCheck"0Remove this unused import 'android.view.Window'.(¿è™÷úÿÿÿÿ8Æ€õïÛ,

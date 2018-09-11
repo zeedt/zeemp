@@ -1,20 +1,16 @@
 package com.zeed.zeemp.activities;
 
-import android.Manifest;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 
 import com.zeed.zeemp.R;
 import com.zeed.zeemp.fragments.AudioListFragment;
@@ -38,13 +34,14 @@ public class MainActivity extends AppCompatActivity implements AudioListFragment
     StatelessFragment statelessFragment;
 
     public MediaPlayerBindService mediaPlayerBindService;
-    private MediaPlayerService mediaPlayerServiceBound;
+
+    private MediaPlayerService mediaPlayerService;
 
     public ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder iBinder) {
             LocalBinder localBinder = (LocalBinder)iBinder;
-            mediaPlayerServiceBound = localBinder.getService();
+            mediaPlayerService = localBinder.getService();
             audioListFragment.setPlayOrPause();
 
         }
@@ -104,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements AudioListFragment
 
     @Override
     public boolean isMusicPlaying() {
-        return mediaPlayerServiceBound.isPlaying();
+        return mediaPlayerService.isPlaying();
     }
 
     @Override
@@ -121,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements AudioListFragment
 
     @Override
     public Audio getCurrentlyPlayed() {
-        return  (mediaPlayerServiceBound == null) ? null : mediaPlayerServiceBound.currentlyPlayed;
+        return  (mediaPlayerService == null) ? null : mediaPlayerService.currentlyPlayed;
     }
 
     private void bindAudioService()
@@ -147,20 +144,20 @@ public class MainActivity extends AppCompatActivity implements AudioListFragment
 
     @Override
     public Pair<Integer, Integer> getDurationAndPosition() {
-        if (mediaPlayerServiceBound == null) {
+        if (mediaPlayerService == null) {
             return null;
         }
-        return mediaPlayerServiceBound.getDurationAndPosition();
+        return mediaPlayerService.getDurationAndPosition();
     }
 
     @Override
     public void seekToPosition(int seekBarPosition) {
-        mediaPlayerServiceBound.seekToPosition(seekBarPosition);
+        mediaPlayerService.seekToPosition(seekBarPosition);
     }
 
     @Override
     public boolean hasMusicCompleted() {
-        return mediaPlayerServiceBound.isCompleted();
+        return mediaPlayerService.isCompleted();
     }
 
     public void doNothing(View view) {
