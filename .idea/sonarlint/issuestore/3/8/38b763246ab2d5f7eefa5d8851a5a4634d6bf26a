@@ -1,24 +1,24 @@
 
-jsquid:S1192Ë"FDefine a constant instead of duplicating this literal "Error" 4 times.(¶Ñ¢şÿÿÿÿ8¯¤ùÛ,
-Isquid:S00108¦")Either remove or fill this block of code.(”ı¾8®á„ûÛ,
 ¥squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñ®çâùÿÿÿÿ8®á„ûÛ,
-osquid:CommentedOutCodeLineï"<This block of commented-out lines of code should be removed.(Ê®•ıüÿÿÿÿ8Ã´ûÛ,
-€squid:S1450K"]Remove the "fragmentLayout" field and declare it as a local variable in the relevant methods.(¶Šî™ıÿÿÿÿ8‘ˆûÛ,
 nsquid:CommentedOutCodeLineo"<This block of commented-out lines of code should be removed.(¦êÉìùÿÿÿÿ8Ñ÷òğÛ,
-Gsquid:S1185É"(Remove this method to simply inherit it.(±íòÑ8®á„ûÛ,
-bsquid:S1155Ë">Use isEmpty() to check whether the collection is empty or not.(«’éÌúÿÿÿÿ8®á„ûÛ,
-msquid:HiddenFieldCheck–">Rename "searchView" which hides the field declared at line 71.(”™¿êıÿÿÿÿ8®á„ûÛ,
-“"squid:ClassVariableVisibilityCheck="^Make albumTitleTextView a static final constant or non-public and provide accessors if needed.(§ŞÃÀ8ÉòÂëÛ,
-¥squid:S1186â"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ìó°şÿÿÿÿ8ÙşˆûÛ,
+€squid:S1450K"]Remove the "fragmentLayout" field and declare it as a local variable in the relevant methods.(¶Šî™ıÿÿÿÿ8‘ˆûÛ,
+wsquid:S1450G"YRemove the "searchView" field and declare it as a local variable in the relevant methods.(‰Ôô¦8şë¥ùÛ,
 bsquid:UselessImportCheck""7Remove this unused import 'android.view.WindowManager'.(Ü³‹Å8ñ™ìùÛ,
-¥squid:S1186İ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ôŠÜ£úÿÿÿÿ8‘ˆûÛ,
 fsquid:S00112…"FDefine and throw a dedicated exception instead of using a generic one.(İŒÜ±8®á„ûÛ,
-˜"squid:ClassVariableVisibilityCheck<"^Make audioTitleTextView a static final constant or non-public and provide accessors if needed.(ÎÀ‰ıÿÿÿÿ8ÉòÂëÛ,
-jsquid:CommentedOutCodeLineì"<This block of commented-out lines of code should be removed.(Ì¶ÊÊ8Ã´ûÛ,
-Qsquid:S1135ë"2Complete the task associated to this TODO comment.(Êã °8Ã´ûÛ,
-\squid:S2589Ë"8Remove this expression which always evaluates to "false"(«’éÌúÿÿÿÿ8®á„ûÛ,
+Isquid:S00108¦")Either remove or fill this block of code.(”ı¾8®á„ûÛ,
 Jsquid:S1068]"-Remove this unused "playValue" private field.(šµè8ÉòÂëÛ,
 Usquid:S1068K"2Remove this unused "fragmentLayout" private field.(¶Šî™ıÿÿÿÿ8‘ˆûÛ,
-wsquid:S1450G"YRemove the "searchView" field and declare it as a local variable in the relevant methods.(‰Ôô¦8şë¥ùÛ,
+osquid:CommentedOutCodeLineï"<This block of commented-out lines of code should be removed.(Ê®•ıüÿÿÿÿ8Ã´ûÛ,
+jsquid:CommentedOutCodeLineì"<This block of commented-out lines of code should be removed.(Ì¶ÊÊ8Ã´ûÛ,
+jsquid:S1192Ë"FDefine a constant instead of duplicating this literal "Error" 4 times.(¶Ñ¢şÿÿÿÿ8¯¤ùÛ,
+msquid:HiddenFieldCheck–">Rename "searchView" which hides the field declared at line 71.(”™¿êıÿÿÿÿ8®á„ûÛ,
 psquid:UselessImportCheck"@Remove this unused import 'android.support.annotation.Nullable'.(Ö‹øïüÿÿÿÿ8‘ˆûÛ,
+¥squid:S1186â"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ìó°şÿÿÿÿ8ÙşˆûÛ,
+¥squid:S1186İ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ôŠÜ£úÿÿÿÿ8‘ˆûÛ,
+˜"squid:ClassVariableVisibilityCheck<"^Make audioTitleTextView a static final constant or non-public and provide accessors if needed.(ÎÀ‰ıÿÿÿÿ8ÉòÂëÛ,
 Isquid:S00108¡")Either remove or fill this block of code.(å¥‡8àÛüÛ,
+“"squid:ClassVariableVisibilityCheck="^Make albumTitleTextView a static final constant or non-public and provide accessors if needed.(§ŞÃÀ8ÉòÂëÛ,
+Qsquid:S1135ë"2Complete the task associated to this TODO comment.(Êã °8Ã´ûÛ,
+Gsquid:S1185É"(Remove this method to simply inherit it.(±íòÑ8®á„ûÛ,
+bsquid:S1155Ë">Use isEmpty() to check whether the collection is empty or not.(«’éÌúÿÿÿÿ8®á„ûÛ,
+\squid:S2589Ë"8Remove this expression which always evaluates to "false"(«’éÌúÿÿÿÿ8®á„ûÛ,
