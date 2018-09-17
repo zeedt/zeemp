@@ -192,6 +192,9 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
             public void onClick(View v) {
 
                 if (currentlyPlayed == null) {
+                    if (audioList == null || audioList.size() == 0) {
+                        return;
+                    }
                     currentlyPlayed = audioList.get(0);
                     try {
                         mListener.playMusic(currentlyPlayed);
@@ -333,6 +336,7 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         fetchMusicWithContentProvider(cursor);
+        mListener.updateMusicPlayerWithAudioList(audioList);
     }
 
     @Override
@@ -390,6 +394,7 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
         Pair<Integer,Integer> getDurationAndPosition();
         void seekToPosition(int seekBarPosition);
         boolean hasMusicCompleted();
+        void updateMusicPlayerWithAudioList(List<Audio> audioList);
     }
 
     public void setCurrentlyPlayedTitle(Audio audio) {

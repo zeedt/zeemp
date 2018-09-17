@@ -17,10 +17,12 @@ import com.zeed.zeemp.fragments.AudioListFragment;
 import com.zeed.zeemp.fragments.DetailsFragment;
 import com.zeed.zeemp.fragments.StatelessFragment;
 import com.zeed.zeemp.models.Audio;
+import com.zeed.zeemp.models.AudioWrapper;
 import com.zeed.zeemp.services.MediaPlayerBindService;
 import com.zeed.zeemp.services.MediaPlayerService;
 import com.zeed.zeemp.services.MediaPlayerService.LocalBinder;
 import java.io.IOException;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AudioListFragment.OnFragmentInteractionListener, DetailsFragment.OnFragmentInteractionListener {
 
@@ -158,6 +160,19 @@ public class MainActivity extends AppCompatActivity implements AudioListFragment
     @Override
     public boolean hasMusicCompleted() {
         return mediaPlayerService.isCompleted();
+    }
+
+    @Override
+    public void updateMusicPlayerWithAudioList(List<Audio> audios) {
+        AudioWrapper audioWrapper = new AudioWrapper();
+        audioWrapper.setAudioList(audios);
+        Intent intent = new Intent(this, MediaPlayerService.class);
+        intent.putExtra("action","updateAudioList");
+        intent.putExtra("audioListWrapper", audioWrapper);
+
+        startService(intent);
+
+
     }
 
     public void doNothing(View view) {

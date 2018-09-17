@@ -17,6 +17,10 @@ import android.util.Log;
 import com.zeed.zeemp.R;
 import com.zeed.zeemp.activities.MainActivity;
 import com.zeed.zeemp.models.Audio;
+import com.zeed.zeemp.models.AudioWrapper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -31,9 +35,13 @@ public class MediaPlayerService extends Service {
 
     private boolean isPlaying = false;
 
+    private int currentlyPlayedIndex = 0;
+
     private boolean completed = false;
 
     LocalBinder localBinder = new LocalBinder();
+
+    private List<Audio> audioList = new ArrayList<>();
 
     @Override
     public void onCreate() {
@@ -46,11 +54,46 @@ public class MediaPlayerService extends Service {
             String action = intent.getStringExtra("action");
             if ("play".equals(action)) {
                 Audio audio = (Audio) intent.getSerializableExtra("currentlyPlayed");
+                List<Audio> audios = (List<Audio>) intent.getSerializableExtra("audioLists");
                 playMedia(audio);
             }
             if ("playorpause".equals(action)) {
                 playOrPauseMedia();
             }
+            if ("updateAudioList".equals(action)) {
+                try {
+                    audioList = (audioList == null) ? new ArrayList<Audio>() : audioList;
+                    audioList.clear();
+                    AudioWrapper audioWrapper = (AudioWrapper) intent.getSerializableExtra("audioListWrapper");
+                    if (audioWrapper == null || audioWrapper.getAudioList() == null  || audioWrapper.getAudioList().size() == 0) {
+                        return;
+                    }
+
+                    audioList.addAll(audioWrapper.getAudioList());
+
+                    currentlyPlayedIndex = audioList.indexOf(currentlyPlayed);
+                } catch (Exception e) {
+                    Log.e("ERROR: ", "onStart: Error occured due to ",e );
+                }
+
+            }
+
+            if ("playNext".equals(action)) {
+                if (audioList == null || audioList.size() == 0 || audioList.size() < (currentlyPlayedIndex+1)) {
+                    return;
+                }
+                playMedia(audioList.get(currentlyPlayedIndex+1));
+                currentlyPlayedIndex +=1;
+            }
+
+            if ("playPrevious".equals(action)) {
+                if (audioList == null || audioList.size() == 0 || currentlyPlayedIndex-1 < 0) {
+                    return;
+                }
+                playMedia(audioList.get(currentlyPlayedIndex-1));
+                currentlyPlayedIndex -=1;
+            }
+
 
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
@@ -64,6 +107,21 @@ public class MediaPlayerService extends Service {
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             PendingIntent contentPendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
+            Intent playOrPauseIntent = new Intent(getApplicationContext(), MediaPlayerService.class);
+            playOrPauseIntent.putExtra("action","playorpause");
+            playOrPauseIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent playOrPausePendingItent = PendingIntent.getService(this,4, playOrPauseIntent,0);
+
+            Intent nextIntent = new Intent(getApplicationContext(), MediaPlayerService.class);
+            nextIntent.putExtra("action","playNext");
+            nextIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent nextPendingItent = PendingIntent.getService(this,2, nextIntent,0);
+
+            Intent previousIntent = new Intent(getApplicationContext(), MediaPlayerService.class);
+            previousIntent.putExtra("action","playPrevious");
+            previousIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent previousPendingItent = PendingIntent.getService(this,3, previousIntent,0);
+
             Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_play_arrow_black_24dp);
 
             Notification notification = new NotificationCompat.Builder(this)
@@ -71,7 +129,9 @@ public class MediaPlayerService extends Service {
                     .setTicker(getResources().getString(R.string.app_name))
                     .setContentText(getResources().getString(R.string.app_name))
                     .setSmallIcon(R.drawable.zeemp)
-//                    .addAction(R.drawable.ic_play_arrow_black_24dp,"Play", contentPendingIntent)
+                    .addAction(R.drawable.ic_skip_previous_black_24dp,"Prev", previousPendingItent)
+                    .addAction(R.drawable.ic_play_arrow_black_24dp,"Play", playOrPausePendingItent)
+                    .addAction(R.drawable.ic_skip_next_black_24dp,"Next", nextPendingItent)
 //                    .setLargeIcon(Bitmap.createScaledBitmap(icon, 128, 128, false))
                     .setContentIntent(contentPendingIntent)
                     .setOngoing(true)
@@ -79,6 +139,8 @@ public class MediaPlayerService extends Service {
                     .build();
             notification.flags = notification.flags | Notification.FLAG_NO_CLEAR;     // NO_CLEAR makes the notification stay when the user performs a "delete all" command
             startForeground(NOTIFICATION_ID, notification);
+
+//            notification.actions[0].actionIntent.
 
         } catch (Exception e) {
             Log.d("Error", "onStart: Error occurred due to ", e);
