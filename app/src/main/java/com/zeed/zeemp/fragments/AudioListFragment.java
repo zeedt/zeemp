@@ -1,7 +1,10 @@
 package com.zeed.zeemp.fragments;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -50,6 +53,8 @@ import java.util.List;
 public class AudioListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, AudioPlayerAdapter.RecyclerItemOnClickListener {
 
     final List<Audio> audioList = new ArrayList<>();
+
+    private BroadcastReceiver broadcastReceiver;
 
     private static final int READ_EXTERNAL_STORAGE_PERMISSION_REQUEST = 1;
 
@@ -100,7 +105,6 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
     }
 
     @Override
@@ -235,7 +239,9 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
             getActivity().getSupportLoaderManager().initLoader(0, null, this);
         }
         showBottomModalSheet();
+        registerReceiver();
         return view;
+
     }
 
 
@@ -523,9 +529,7 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (progress == 99) {
-                    bottomModalSheetNext.performClick();
-                }
+
             }
 
             @Override
@@ -551,6 +555,26 @@ public class AudioListFragment extends Fragment implements LoaderManager.LoaderC
 
             }
         }
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(broadcastReceiver != null) {
+            getActivity().unregisterReceiver(broadcastReceiver);
+        }
+    }
+
+    private void registerReceiver() {
+        broadcastReceiver = new BroadcastReceiver() {
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String data = intent.getStringExtra("DATA");
+            }
+        };
+        getActivity().registerReceiver(broadcastReceiver, new IntentFilter("CUSTOM_ACTION"));
     }
 
 }

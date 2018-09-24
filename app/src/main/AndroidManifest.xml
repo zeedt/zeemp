@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <service android:name=".services.MediaPlayerService" android:enabled="true" android:stopWithTask="false" />
+        <receiver android:name="com.zeed.zeemp.receiver.MyBroadCastReceiver" />
     </application>
 
 </manifest>

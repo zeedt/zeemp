@@ -1,8 +1,10 @@
 package com.zeed.zeemp.activities;
 
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.IBinder;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements AudioListFragment
     public MediaPlayerBindService mediaPlayerBindService;
 
     private MediaPlayerService mediaPlayerService;
+
 
     public ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements AudioListFragment
         fragmentTransaction.commit();
 
     }
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -179,5 +183,9 @@ public class MainActivity extends AppCompatActivity implements AudioListFragment
         return;
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
 
+    }
 }
