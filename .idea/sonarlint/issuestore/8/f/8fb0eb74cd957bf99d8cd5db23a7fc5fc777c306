@@ -1,0 +1,4 @@
+
+[squid:S1854C"8Remove this useless assignment to local variable "icon".(İ¦şÿÿÿÿ8·‰¢ïÚ,
+"squid:ClassVariableVisibilityCheck"[Make currentlyPlayed a static final constant or non-public and provide accessors if needed.(Ó¾£—8ÒŸñÙ,
+Lsquid:S1481C")Remove this unused "icon" local variable.(İ¦şÿÿÿÿ8·‰¢ïÚ,

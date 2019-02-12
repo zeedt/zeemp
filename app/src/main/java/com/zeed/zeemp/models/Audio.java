@@ -3,7 +3,7 @@ package com.zeed.zeemp.models;
 import java.io.Serializable;
 
 /**
- * Created by teamapt on 12/08/2018.
+ * Created by zeed on 12/08/2018.
  */
 
 public class Audio implements Serializable {
@@ -66,5 +66,18 @@ public class Audio implements Serializable {
 
     public void setArtist(String artist) {
         this.artist = artist;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        Audio passedAudio = (Audio) obj;
+        if (passedAudio.getAlbumId().equals(this.getAlbumId()) && passedAudio.getData().equals(this.getData()) && passedAudio.getArtist().equals(this.getArtist())) {
+            return true;
+        }
+
+        return super.equals(obj);
     }
 }
